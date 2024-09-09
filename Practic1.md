@@ -83,3 +83,37 @@ done
 ```
 
 ![Задание 6. Скриншот выполнения](Задание%206.png)
+
+## Задание 7
+
+Написать программу для нахождения файлов-дубликатов (имеющих 1 или более копий содержимого) по заданному пути (и подкаталогам).
+
+```bash
+#!/bin/bash 
+
+declare -A hashes 
+
+find_dublicates(){ 
+    local dir=$1 
+
+    for file in "$dir"/*; do 
+        if [[ -f $file ]]; then 
+            hash=$(md5sum $file | awk '{print $1}') 
+            if [[ -n ${hashes[$hash]} ]]; then 
+                echo "найдены дубликаты по содержанию:" 
+                echo "${hashes[$hash]}" 
+                echo "$file" 
+                echo "          " 
+            else 
+                hashes[$hash]=$file 
+            fi 
+        elif [[ -d $file ]]; then 
+            fund_dublicates $file 
+        fi 
+     done 
+} 
+
+find_dublicates "."
+```
+
+![Задание 7. Скриншот выполнения](Задание%207.png)
