@@ -65,3 +65,21 @@ chmod 755 $d
 
 ![Задание 5. Скриншот выполнения](Задание%205.png)
 
+## Задание 6
+
+Написать программу для проверки наличия комментария в первой строке файлов с расширением c, js и py.
+
+```bash
+#!/bin/bash 
+
+for file in *.c *.js *.py; do 
+    line=$(head -n 1 "$file") 
+    if [[ $line == "#"* || $line == "//"* || $line == "/*"* ]]; then 
+        echo "$file: first line is comment" 
+    else 
+        echo "$file: first line IN NOT comment" 
+    fi 
+done
+```
+
+![Задание 6. Скриншот выполнения](Задание%206.png)
