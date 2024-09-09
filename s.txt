@@ -1,0 +1,92 @@
+Хоровиц Искусство схемотехники
+
+#!/usr/bin/env python3
+letter = input()
+letter_length = len(letter)
+print("+-" + "-" * letter_length + "-+")
+print("| " + letter + " |")
+print("+-" + "-" * letter_length + "-+")
+
+#!/bin/bash
+ 
+d="/usr/local/bin/$(basename "$file" .py)"
+file=$1
+ 
+if [ ! -f $file ]; then
+    echo "File $file not found"
+    exit 1
+fi
+ 
+cp $file $d
+chmod 755 $d
+
+#!/bin/bash
+ 
+dir=$1
+ 
+if [ ! -d $dir ]; then
+    echo "no dir found"
+    exit 1
+fi
+
+#!/bin/bash
+ 
+for file in *.c *.js *.py; do
+    line=$(head -n 1 "$file")
+    if [[ $line == "#"* || $line == "//"* || $line == "/*"* ]]; then
+        echo "$file: first line is comment"
+    else
+        echo "$file: first line IN NOT comment"
+    fi
+done
+
+#!/bin/bash
+ 
+files=( $(find . -type f -name "*.$1") )
+ 
+if [[ ${#files[@]} -eq 0 ]]; then
+    echo "Файлы с расширением .$1 не найдены."
+    exit 0
+fi 
+tar -cvf "archive.tar" "${files[@]}"
+ 
+echo "Архив создан"
+
+#!/bin/bash
+ 
+input_file=$1
+output_file=$2
+ 
+sed 's/    /\t/g' $input_file > $output_file
+ 
+if [[ $? -eq 0 ]]; then
+    echo "Замена завершена. Результат записан в '$output_file'."
+else
+    echo "Ошибка при замене." exit 1
+fi
+
+#!/bin/bash
+ 
+declare -A hashes
+ 
+find_dublicates(){
+    local dir=$1
+ 
+    for file in "$dir"/*; do
+        if [[ -f $file ]]; then
+            hash=$(md5sum $file | awk '{print $1}')
+            if [[ -n ${hashes[$hash]} ]]; then
+                echo "найдены дубликаты по содержанию:"
+                echo "${hashes[$hash]}"
+                echo "$file"
+                echo "          "
+            else
+                hashes[$hash]=$file
+            fi
+        elif [[ -d $file ]]; then
+            fund_dublicates $file
+        fi
+     done
+}
+ 
+find_dublicates "."
