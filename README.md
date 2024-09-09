@@ -1,1 +1,1 @@
-# ConfigurationManagementMIREA
+![123](prac1.png)
