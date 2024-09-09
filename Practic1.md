@@ -26,3 +26,5 @@ letter_len = len(letter)
 print("+-" + "-" * letter_len + "-+")
 print("| " + letter + " |")
 print("+-" + "-" * letter_len + "-+")```
+
+![Задание 2. Скриншот выполнения](Задание%203.png)
